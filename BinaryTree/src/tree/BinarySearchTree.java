@@ -19,25 +19,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 			root = new Node(a);
 			return;
 		}
-		Node p = root;
-
-		while (true) {
-			if (a.compareTo(p.data) <= 0) {
-				if (p.left != null)
-					p = p.left;
-				else {
-					p.left = new Node(a);
-					return;
-				}
-			} else {
-				if (p.right != null)
-					p = p.right;
-				else {
-					p.right = new Node(a);
-					return;
-				}
-			}
-		}
+		else root = insert(a, root);
+	}
+	
+	private Node insert(T a, Node node){
+		if(node == null) return new Node(a);
+		
+		int cmp = a.compareTo(node.val);
+		
+		if(cmp <= 0) node.left = insert(a, node.left);
+		else node.right = insert(a, node.right);
+		
+		return node;
 	}
 
 	public void printTree() {
@@ -46,11 +39,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	}
 
 	public class Node {
-		T data;
+		T val;
 		Node left, right;
 
 		public Node(T x) {
-			data = x;
+			val = x;
 			left = null;
 			right = null;
 		}

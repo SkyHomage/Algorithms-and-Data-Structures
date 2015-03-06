@@ -1,5 +1,6 @@
 package tree;
-//found on stackoverflow
+/** Author: michal.kreuzman 
+ * http://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ class BTreePrinter {
 		List<Node> newNodes = new ArrayList<Node>();
 		for (Node node : nodes) {
 			if (node != null) {
-				System.out.print(node.data);
+				System.out.print(node.val);
 				newNodes.add(node.left);
 				newNodes.add(node.right);
 			} else {
