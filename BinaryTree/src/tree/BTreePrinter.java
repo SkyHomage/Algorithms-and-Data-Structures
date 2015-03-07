@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import tree.BinarySearchTree.Node;
+import tree.BST.Node;
 
 @SuppressWarnings("rawtypes")
 class BTreePrinter {
@@ -32,7 +32,7 @@ class BTreePrinter {
 		List<Node> newNodes = new ArrayList<Node>();
 		for (Node node : nodes) {
 			if (node != null) {
-				System.out.print(node.val);
+				System.out.print(node.key);
 				newNodes.add(node.left);
 				newNodes.add(node.right);
 			} else {

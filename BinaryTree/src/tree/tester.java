@@ -10,7 +10,8 @@ public class tester {
 		
 		File file = new File("input.txt");
 		String[] words = splitFile(file);
-		BinarySearchTree<String> tree = new BinarySearchTree<String>(words);
+		String[] vals = new String[words.length];
+		BST<String, String> tree = new BST<String, String>(words, vals);
 		tree.printTree();
 		tree.delete("Robinson");
 		tree.printTree();
@@ -19,7 +20,6 @@ public class tester {
 	private static String[] splitFile(File file) throws FileNotFoundException {
 		Scanner scn = new Scanner(file);
 		StringBuilder sb = new StringBuilder();
-		
 		
 		while(scn.hasNext()){
 			sb.append(scn.nextLine()+" ");

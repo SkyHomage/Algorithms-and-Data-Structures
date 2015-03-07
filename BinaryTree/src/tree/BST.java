@@ -1,53 +1,52 @@
 package tree;
 
-public class BinarySearchTree<T extends Comparable<? super T>> {
+public class BST<Key extends Comparable<Key>, Value> {
 	private Node root;
 
-	public BinarySearchTree(T[] a) {
-		root = new Node(a[0]);
+	public BST(Key[] keys, Value[] vals) {
+		root = new Node(keys[0], vals[0]);
 
-		for (int i = 1; i < a.length; i++)
-			insert(a[i]);
+		for (int i = 1; i < keys.length; i++)
+			insert(keys[i], vals[i]);
 	}
 
-	public BinarySearchTree(T a) {
-		root = new Node(a);
+	public BST(Key key, Value val) {
+		root = new Node(key, val);
 	}
 
-	public void insert(T a) {
+	public void insert(Key key, Value val) {
 		if (root == null) {
-			root = new Node(a);
+			root = new Node(key, val);
 			return;
 		}
-		else root = insert(a, root);
+		else root = insert(key, val,  root);
 	}
 	
 	public void printTree() {
-
 		BTreePrinter.printNode(root);
 	}
 	
-	public boolean delete(T key){
+	public boolean delete(Key key){
 		root = delete(key, root);
 		return true;
 	}
 	
-	private Node insert(T a, Node node){
-		if(node == null) return new Node(a);
+	private Node insert(Key key, Value val, Node node){
+		if(node == null) return new Node(key, val);
 		
-		int cmp = a.compareTo(node.val);
+		int cmp = key.compareTo(node.key);
 		
-		if(cmp <= 0) node.left = insert(a, node.left);
-		else node.right = insert(a, node.right);
+		if(cmp <= 0) node.left = insert(key, val,  node.left);
+		else node.right = insert(key, val, node.right);
 		
 		return node;
 	}
 	
 	/* deletion using T.Hibbard's eager deletion */
-	private Node delete(T key, Node node){
+	private Node delete(Key key, Node node){
 		if(node == null) return null;
 		
-		int cmp = key.compareTo(node.val);
+		int cmp = key.compareTo(node.key);
 		
 		if(cmp < 0) node.left = delete(key, node.left);
 		else if (cmp > 0) node.right = delete(key, node.right);
@@ -65,11 +64,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	}
 	
 	private Node min(Node node){
-		if(node.left == null){ 
-			
-			return node;
-		
-		}
+		if(node.left == null) return node;
 		else return min(node.left);
 	}
 	
@@ -81,11 +76,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
 
 	public class Node {
-		T val;
+		Key key;
+		Value value;
 		Node left, right;
-
-		public Node(T x) {
-			val = x;
+		
+		public Node(Key k, Value v) {
+			key = k;
+			value = v;
 			left = null;
 			right = null;
 		}
