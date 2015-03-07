@@ -22,6 +22,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		else root = insert(a, root);
 	}
 	
+	public void printTree() {
+
+		BTreePrinter.printNode(root);
+	}
+	
+	public boolean delete(T key){
+		root = delete(key, root);
+		return true;
+	}
+	
 	private Node insert(T a, Node node){
 		if(node == null) return new Node(a);
 		
@@ -32,11 +42,43 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		
 		return node;
 	}
-
-	public void printTree() {
-
-		BTreePrinter.printNode(root);
+	
+	/* deletion using T.Hibbard's eager deletion */
+	private Node delete(T key, Node node){
+		if(node == null) return null;
+		
+		int cmp = key.compareTo(node.val);
+		
+		if(cmp < 0) node.left = delete(key, node.left);
+		else if (cmp > 0) node.right = delete(key, node.right);
+		else{
+			if(node.right == null)	return node.left;
+			if(node.left == null) return node.right;
+			
+			Node tmp = node;  
+			node = min(tmp.right);
+			node.right = deleteMin(tmp.right);
+			node.left = tmp.left;
+			}
+		
+		return node;
 	}
+	
+	private Node min(Node node){
+		if(node.left == null){ 
+			
+			return node;
+		
+		}
+		else return min(node.left);
+	}
+	
+	private Node deleteMin(Node node){
+		if(node.left == null) return node.right;
+		node.left = deleteMin(node.left);
+		return node;
+	}
+
 
 	public class Node {
 		T val;

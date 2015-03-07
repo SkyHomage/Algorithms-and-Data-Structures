@@ -12,6 +12,8 @@ public class tester {
 		String[] words = splitFile(file);
 		BinarySearchTree<String> tree = new BinarySearchTree<String>(words);
 		tree.printTree();
+		tree.delete("Robinson");
+		tree.printTree();
 	}
 
 	private static String[] splitFile(File file) throws FileNotFoundException {
