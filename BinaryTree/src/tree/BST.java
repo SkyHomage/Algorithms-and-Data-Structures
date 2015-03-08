@@ -35,7 +35,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 		try {
 			BTreePrinter.printNode(root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -68,6 +68,14 @@ public class BST<Key extends Comparable<Key>, Value> {
 	
 	public void inorderTraverse(){
 		inorderTraverse(root);
+	}
+	
+	public void postorderTraverse(){
+		postorderTraverse(root);
+	}
+	
+	public void reverseInOrderTraverse(){
+		reverseInOrderTraverse(root);
 	}
 	
 	/* deletion using T.Hibbard's eager deletion */
@@ -107,6 +115,20 @@ public class BST<Key extends Comparable<Key>, Value> {
 		inorderTraverse(node.left);
 		System.out.println(node.key);
 		inorderTraverse(node.right);
+	}
+	
+	private void reverseInOrderTraverse(Node node){
+		if(node == null) return;
+		reverseInOrderTraverse(node.right);
+		System.out.println(node.key);
+		reverseInOrderTraverse(node.left);
+	}
+	
+	private void postorderTraverse(Node node){
+		if(node == null) return;
+		postorderTraverse(node.left);
+		postorderTraverse(node.right);
+		System.out.println(node.key);
 	}
 
 

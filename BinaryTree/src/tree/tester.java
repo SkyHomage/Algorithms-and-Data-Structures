@@ -18,6 +18,9 @@ public class tester {
 		System.out.println(toGet  + " - " + tree.get(toGet));
 		
 		tree.inorderTraverse();
+		tree.reverseInOrderTraverse();
+		tree.postorderTraverse();
+		
 	}
 
 	private static void insertFile(File file, BST<String, String> tree) throws FileNotFoundException{
