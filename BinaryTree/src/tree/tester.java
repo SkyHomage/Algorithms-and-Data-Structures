@@ -16,6 +16,8 @@ public class tester {
 		//tree.printTree();
 		String toGet = "meatus";
 		System.out.println(toGet  + " - " + tree.get(toGet));
+		
+		tree.inorderTraverse();
 	}
 
 	private static void insertFile(File file, BST<String, String> tree) throws FileNotFoundException{
@@ -31,7 +33,7 @@ public class tester {
 				if(s.length() == 0) break;
 				if(s.length() > 30){
 					String[] split = s.split(" ");
-					for(int i = 0; i < split.length; i ++){
+					for(int i = 0; i*10 < split.length; i ++){
 						for(int j = i*10; j< split.length && j < i*10 +10; j++){
 							sb.append(split[j] + " ");
 						}

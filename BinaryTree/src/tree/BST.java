@@ -66,6 +66,10 @@ public class BST<Key extends Comparable<Key>, Value> {
 	
 	}
 	
+	public void inorderTraverse(){
+		inorderTraverse(root);
+	}
+	
 	/* deletion using T.Hibbard's eager deletion */
 	private Node delete(Key key, Node node){
 		if(node == null) return null;
@@ -96,6 +100,13 @@ public class BST<Key extends Comparable<Key>, Value> {
 		if(node.left == null) return node.right;
 		node.left = deleteMin(node.left);
 		return node;
+	}
+	
+	private void inorderTraverse(Node node){
+		if(node == null) return;
+		inorderTraverse(node.left);
+		System.out.println(node.key);
+		inorderTraverse(node.right);
 	}
 
 
