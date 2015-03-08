@@ -1,6 +1,9 @@
 package tree;
 /** Author: michal.kreuzman 
  * http://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram */
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,16 +12,17 @@ import tree.BST.Node;
 
 @SuppressWarnings("rawtypes")
 class BTreePrinter {
-
-	
-	public static <T extends Comparable<?>> void printNode(Node root) {
+	static FileWriter fw;
+	public static <T extends Comparable<?>> void printNode(Node root) throws IOException {
+		fw = new FileWriter(new File("output.txt"));
 		int maxLevel = BTreePrinter.maxLevel(root);
-
 		printNodeInternal(Collections.singletonList(root), 1, maxLevel);
+		fw.flush();
+		fw.close();
 	}
 
 	private static <T extends Comparable<?>> void printNodeInternal(
-			List<Node> nodes, int level, int maxLevel) {
+			List<Node> nodes, int level, int maxLevel) throws IOException {
 		if (nodes.isEmpty() || BTreePrinter.isAllElementsNull(nodes))
 			return;
 
@@ -32,18 +36,18 @@ class BTreePrinter {
 		List<Node> newNodes = new ArrayList<Node>();
 		for (Node node : nodes) {
 			if (node != null) {
-				System.out.print(node.key);
+				fw.write(""+node.key);
 				newNodes.add(node.left);
 				newNodes.add(node.right);
 			} else {
 				newNodes.add(null);
 				newNodes.add(null);
-				System.out.print(" ");
+				fw.write(" ");
 			}
 
 			BTreePrinter.printWhitespaces(betweenSpaces);
 		}
-		System.out.println("");
+		fw.write("\n");
 		for (int i = 1; i <= endgeLines; i++) {
 			for (int j = 0; j < nodes.size(); j++) {
 				BTreePrinter.printWhitespaces(firstSpaces - i);
@@ -54,29 +58,29 @@ class BTreePrinter {
 				}
 
 				if (nodes.get(j).left != null)
-					System.out.print("/");
+					fw.write("/");
 				else
 					BTreePrinter.printWhitespaces(1);
 
 				BTreePrinter.printWhitespaces(i + i - 1);
 
 				if (nodes.get(j).right != null)
-					System.out.print("\\");
+					fw.write("\\");
 				else
 					BTreePrinter.printWhitespaces(1);
 
 				BTreePrinter.printWhitespaces(endgeLines + endgeLines - i);
 			}
 
-			System.out.println("");
+			fw.write("\n");
 		}
 
 		printNodeInternal(newNodes, level + 1, maxLevel);
 	}
 
-	private static void printWhitespaces(int count) {
+	private static void printWhitespaces(int count) throws IOException {
 		for (int i = 0; i < count; i++)
-			System.out.print(" ");
+			fw.write(" ");
 	}
 
 	private static <T extends Comparable<?>> int maxLevel(Node node) {

@@ -1,29 +1,43 @@
 package tree;
 
+import java.io.IOException;
+
 public class BST<Key extends Comparable<Key>, Value> {
 	private Node root;
-
+	
+	public BST(){
+		root = null;
+	}
 	public BST(Key[] keys, Value[] vals) {
 		root = new Node(keys[0], vals[0]);
 
 		for (int i = 1; i < keys.length; i++)
-			insert(keys[i], vals[i]);
+			put(keys[i], vals[i]);
 	}
 
 	public BST(Key key, Value val) {
 		root = new Node(key, val);
 	}
 
-	public void insert(Key key, Value val) {
+	public void put(Key key, Value val) {
 		if (root == null) {
 			root = new Node(key, val);
 			return;
 		}
-		else root = insert(key, val,  root);
+		else root = put(key, val,  root);
+	}
+	
+	public Value get(Key key){
+		return get(key, root);
 	}
 	
 	public void printTree() {
-		BTreePrinter.printNode(root);
+		try {
+			BTreePrinter.printNode(root);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean delete(Key key){
@@ -31,15 +45,25 @@ public class BST<Key extends Comparable<Key>, Value> {
 		return true;
 	}
 	
-	private Node insert(Key key, Value val, Node node){
+	private Node put(Key key, Value val, Node node){
 		if(node == null) return new Node(key, val);
 		
 		int cmp = key.compareTo(node.key);
 		
-		if(cmp <= 0) node.left = insert(key, val,  node.left);
-		else node.right = insert(key, val, node.right);
+		if(cmp <= 0) node.left = put(key, val,  node.left);
+		else node.right = put(key, val, node.right);
 		
 		return node;
+	}
+	
+	public Value get(Key key, Node node){
+		if(node == null) return null;
+		int cmp = key.compareTo(node.key);
+		
+		if(cmp < 0) return get(key, node.left);
+		if(cmp > 0) return get(key, node.right);
+		return node.value;
+	
 	}
 	
 	/* deletion using T.Hibbard's eager deletion */
