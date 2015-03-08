@@ -3,7 +3,7 @@ package tree;
 import java.io.IOException;
 
 public class BST<Key extends Comparable<Key>, Value> {
-	private Node root;
+	protected Node root;
 	
 	public BST(){
 		root = null;
@@ -99,7 +99,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 		return node;
 	}
 	
-	private Node min(Node node){
+	protected Node min(Node node){
 		if(node.left == null) return node;
 		else return min(node.left);
 	}
@@ -110,38 +110,50 @@ public class BST<Key extends Comparable<Key>, Value> {
 		return node;
 	}
 	
-	private void inorderTraverse(Node node){
+	protected void inorderTraverse(Node node){
 		if(node == null) return;
 		inorderTraverse(node.left);
 		System.out.println(node.key);
 		inorderTraverse(node.right);
 	}
 	
-	private void reverseInOrderTraverse(Node node){
+	protected void reverseInOrderTraverse(Node node){
 		if(node == null) return;
 		reverseInOrderTraverse(node.right);
 		System.out.println(node.key);
 		reverseInOrderTraverse(node.left);
 	}
 	
-	private void postorderTraverse(Node node){
+	protected void postorderTraverse(Node node){
 		if(node == null) return;
 		postorderTraverse(node.left);
 		postorderTraverse(node.right);
 		System.out.println(node.key);
 	}
+	
 
 
 	public class Node {
 		Key key;
 		Value value;
 		Node left, right;
+		boolean color;
 		
 		public Node(Key k, Value v) {
 			key = k;
 			value = v;
 			left = null;
 			right = null;
+			color = false;
+		}
+		
+		public Node(Key k, Value v, boolean color) {
+			key = k;
+			value = v;
+			left = null;
+			right = null;
+			this.color = color;
+	
 		}
 	}
 }

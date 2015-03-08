@@ -9,12 +9,12 @@ public class tester {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		File file = new File("input.txt");
-		//String[] words = splitFile(file);
-		//String[] vals = new String[words.length];
-		BST<String, String> tree = new BST<String, String>();
-		insertFile(file, tree);
-		//tree.printTree();
-		String toGet = "meatus";
+		String[] words = splitFile(file);
+		String[] vals = new String[words.length];
+		BST<String, String> tree = new RedBlackBST<String, String>(words, vals);
+		//insertFile(file, tree);
+		tree.printTree();
+		String toGet = "nimbus";
 		System.out.println(toGet  + " - " + tree.get(toGet));
 		
 		tree.inorderTraverse();
