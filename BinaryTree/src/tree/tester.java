@@ -13,13 +13,15 @@ public class tester {
 		String[] vals = new String[words.length];
 		BST<String, String> tree = new RedBlackBST<String, String>(words, vals);
 		//insertFile(file, tree);
-		tree.printTree();
-		String toGet = "nimbus";
-		System.out.println(toGet  + " - " + tree.get(toGet));
+		//tree.printTree();
+		String toGet = "2";
+		//System.out.println(toGet  + " - " + tree.get(toGet));
 		
 		tree.inorderTraverse();
-		tree.reverseInOrderTraverse();
-		tree.postorderTraverse();
+		//tree.reverseInOrderTraverse();
+		//tree.postorderTraverse();
+		System.out.println();
+		System.out.println(tree.successor(toGet));
 		
 	}
 
