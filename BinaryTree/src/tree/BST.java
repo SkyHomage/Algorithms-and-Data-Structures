@@ -134,36 +134,28 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 	
 	public Key successor(Key key){
-		//using a queue for now since no parent pointers
-		Queue<Node> queue = new LinkedList<Node>();
-		Node p = successor(key, root, queue);
+
+		Node p = successor(key, root, null);
 		return p != null ? p.key : null;
 	}
 	
 	//TODO: change to only get reference to last node visited instead of a queue
-	private Node successor(Key key, Node node, Queue<Node> queue){
+	private Node successor(Key key, Node node, Node prev){
 		if(node == null) return null;
 		int cmp = key.compareTo(node.key);
 		if(cmp < 0){
-			queue.add(node);
-			return successor(key, node.left, queue);
+			return successor(key, node.left, node);
 		}
 		if(cmp > 0){
-			return successor(key, node.right, queue);
+			return successor(key, node.right, prev);
 		}
 		
 		if(node.right != null) return min(node.right); 
 		//if the node does not have a right subtree then we look up the stack
-		if(queue.isEmpty()) return null;
-		Node max = ((LinkedList<Node>)queue).pollLast();
-		return max;
-		/*while(!queue.isEmpty()){
-			Node p = ((LinkedList<Node>)queue).pollLast();
-			if(max.key.compareTo(p.key) > 0){
-				max = p;
-			}
-		}
-		return max;*/
+		
+		
+		return prev;
+	
 	}
 	
 

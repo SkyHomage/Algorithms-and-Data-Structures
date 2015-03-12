@@ -14,7 +14,7 @@ public class tester {
 		BST<String, String> tree = new RedBlackBST<String, String>(words, vals);
 		//insertFile(file, tree);
 		//tree.printTree();
-		String toGet = "2";
+		String toGet = "with";
 		//System.out.println(toGet  + " - " + tree.get(toGet));
 		
 		tree.inorderTraverse();
