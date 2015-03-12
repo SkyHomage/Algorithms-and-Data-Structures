@@ -14,14 +14,14 @@ public class tester {
 		BST<String, String> tree = new RedBlackBST<String, String>(words, vals);
 		//insertFile(file, tree);
 		//tree.printTree();
-		String toGet = "with";
+		String toGet = "usually";
 		//System.out.println(toGet  + " - " + tree.get(toGet));
 		
 		tree.inorderTraverse();
 		//tree.reverseInOrderTraverse();
 		//tree.postorderTraverse();
 		System.out.println();
-		System.out.println(tree.successor(toGet));
+		System.out.println(tree.predecessor(toGet));
 		
 	}
 

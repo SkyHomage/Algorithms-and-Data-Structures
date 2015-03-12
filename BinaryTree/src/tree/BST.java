@@ -106,6 +106,11 @@ public class BST<Key extends Comparable<Key>, Value> {
 		else return min(node.left);
 	}
 	
+	protected Node max(Node node){
+		if(node.right == null) return node;
+		else return max(node.right);
+	}
+	
 	private Node deleteMin(Node node){
 		if(node.left == null) return node.right;
 		node.left = deleteMin(node.left);
@@ -139,7 +144,28 @@ public class BST<Key extends Comparable<Key>, Value> {
 		return p != null ? p.key : null;
 	}
 	
-	//TODO: change to only get reference to last node visited instead of a queue
+	public Key predecessor(Key key){
+		Node p = predecessor(key, root, null);
+		return p != null ? p.key : null;
+	}
+	
+
+	private Node predecessor(Key key, Node node, Node prev) {
+		if(node == null) return null;
+		int cmp = key.compareTo(node.key);
+		if(cmp < 0){
+			return predecessor(key, node.left, prev);
+		}
+		if(cmp > 0){
+			return predecessor(key, node.right, node);
+		}
+		
+		if(node.left != null) return max(node.left); 
+		
+		
+		//the prev node should hold a parent who is the predecessor
+		return prev;
+	}
 	private Node successor(Key key, Node node, Node prev){
 		if(node == null) return null;
 		int cmp = key.compareTo(node.key);
@@ -151,9 +177,9 @@ public class BST<Key extends Comparable<Key>, Value> {
 		}
 		
 		if(node.right != null) return min(node.right); 
-		//if the node does not have a right subtree then we look up the stack
 		
 		
+		//the prev node should hold a parent who is the successor
 		return prev;
 	
 	}
