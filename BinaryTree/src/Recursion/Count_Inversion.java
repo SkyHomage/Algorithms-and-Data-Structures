@@ -3,7 +3,6 @@ package Recursion;
 import java.util.Arrays;
 
 public class Count_Inversion {
-	//[1,3, 5, 2, 7, 4]
 	public static int count(int[] A){
 		
 		 return solve(A, 0, A.length -1);
