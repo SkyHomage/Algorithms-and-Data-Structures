@@ -27,7 +27,7 @@ public class Permutations {
 	}
 
 	public static void main(String[] args) {
-		generate("Hello");
+		generate("Purge");
 	}
 
 }
